@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="360" viewBox="0 0 760 360" font-family="Menlo, Consolas, monospace" font-size="14">
+  <rect width="760" height="360" rx="10" fill="#101418"/>
+  <circle cx="24" cy="22" r="6" fill="#ff5f56"/>
+  <circle cx="44" cy="22" r="6" fill="#ffbd2e"/>
+  <circle cx="64" cy="22" r="6" fill="#27c93f"/>
+  <text x="380" y="27" fill="#8b949e" text-anchor="middle" font-size="12">pipeprof — which stage of the pipe is slow?</text>
+  <g fill="#c9d1d9">
+    <text x="24" y="62"><tspan fill="#7ee787">$</tspan> pipeprof --input demo.log --no-output 'grep " 500 " | cut -d" " -f7 | sort | uniq -c | sort -rn'</text>
+    <text x="24" y="96"><tspan fill="#79c0ff">pipeprof</tspan> — 5 stages, 73ms total, exit 0</text>
+    <text x="24" y="130" fill="#d2a8ff">#  COMMAND        IN BYTES  OUT BYTES  RECORDS  WALL    CPU  FIRST OUT  EXIT</text>
+    <text x="24" y="156">1  <tspan fill="#7ee787">grep " 500 "</tspan>    15.8MiB     2.6MiB   33,333  63ms   <tspan fill="#f778ba">25ms</tspan>       17ms     0</text>
+    <text x="24" y="180">2  <tspan fill="#7ee787">cut -d" " -f7</tspan>    2.6MiB     485KiB   33,333  59ms  8.3ms       17ms     0</text>
+    <text x="24" y="204">3  <tspan fill="#7ee787">sort</tspan>             485KiB     485KiB   33,333  65ms  9.6ms       <tspan fill="#ffbd2e">68ms</tspan>     0</text>
+    <text x="24" y="228">4  <tspan fill="#7ee787">uniq -c</tspan>          485KiB    22.3KiB      997  65ms  3.0ms       68ms     0</text>
+    <text x="24" y="252">5  <tspan fill="#7ee787">sort -rn</tspan>        22.3KiB    22.3KiB      997  65ms  2.4ms       72ms     0</text>
+    <text x="24" y="290" fill="#f778ba">bottleneck: stage 1 (grep " 500 ") — 52.0% of pipeline CPU,</text>
+    <text x="24" y="312" fill="#f778ba">            first output after 24% of the run</text>
+    <text x="24" y="340" fill="#8b949e">every boundary metered · unmodified pipeline · zero dependencies</text>
+  </g>
+</svg>
